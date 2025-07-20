@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barrier Access</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      color: #f8d776;
+    }
+
+    .offline {
+      color: #ff6666;
+    }
+
+    .pin-container {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .pin-container input {
+      width: 60px;
+      height: 60px;
+      font-size: 2rem;
+      text-align: center;
+      border: none;
+      border-radius: 10px;
+      background-color: #fff;
+      color: #000;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #777;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #f8d776;
+    }
+
+    .error {
+      color: #ff8888;
+    }
+
+    .success {
+      color: #7CFC00;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Enter Access PIN</h1>
+  <div id="deviceStatus" class="status">Checking device status...</div>
+
+  <div class="pin-container">
+    <input type="text" maxlength="1" inputmode="numeric" />
+    <input type="text" maxlength="1" inputmode="numeric" />
+    <input type="text" maxlength="1" inputmode="numeric" />
+    <input type="text" maxlength="1" inputmode="numeric" />
+  </div>
+
+  <button id="submitBtn" disabled>Open Barrier</button>
+  <div class="message" id="message"></div>
+
+  <script>
+    const version = "v5";
+    if (localStorage.getItem("barrier-version") !== version) {
+      localStorage.setItem("barrier-version", version);
+      location.reload(true);
+    }
+
+    const inputs = document.querySelectorAll('.pin-container input');
+    const button = document.getElementById('submitBtn');
+    const message = document.getElementById('message');
+    const statusDisplay = document.getElementById('deviceStatus');
+
+    const BLYNK_TOKEN = 'YP2ihYjktFqA70ocVXo2XVyqpCJUoJK4';
+    let VALID_HASH = null;
+
+    // Auto-tab on input
+    inputs.forEach((input, idx) => {
+      input.addEventListener('input', () => {
+        if (input.value.length === 1 && idx < inputs.length - 1) {
+          inputs[idx + 1].focus();
+        }
+        checkReady();
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === "Backspace" && !input.value && idx > 0) {
+          inputs[idx - 1].focus();
+        }
+      });
+    });
+
+    function checkReady() {
+      const filled = Array.from(inputs).every(input => input.value);
+      const hashLoaded = VALID_HASH !== null;
+      const online = button.dataset.online === "true";
+      button.disabled = !(filled && hashLoaded && online);
+    }
+
+    async function hashPIN(pin) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(pin);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    button.addEventListener('click', async () => {
+      const pin = Array.from(inputs).map(input => input.value).join('');
+      const hashed = await hashPIN(pin);
+
+      if (!VALID_HASH) {
+        message.className = 'message error';
+        message.textContent = "Hash not loaded. Try refreshing the page.";
+        return;
+      }
+
+      if (hashed === VALID_HASH) {
+        message.className = 'message';
+        message.textContent = "Access granted. Opening barrier...";
+
+        fetch(`https://blynk.cloud/external/api/update?token=${BLYNK_TOKEN}&pin=V0&value=1`)
+          .then(() => {
+            message.className = 'message success';
+            message.textContent = "Barrier opened successfully.";
+            setTimeout(() => window.close(), 2000);
+          })
+          .catch(() => {
+            message.className = 'message error';
+            message.textContent = "Failed to send request.";
+          });
+      } else {
+        message.className = 'message error';
+        message.textContent = "Incorrect PIN.";
+        inputs.forEach(input => input.value = '');
+        inputs[0].focus();
+        checkReady();
+      }
+    });
+
+    // Load PIN hash from V10
+    fetch(`https://blynk.cloud/external/api/get?token=${BLYNK_TOKEN}&pin=V10`)
+      .then(res => res.text())
+      .then(hash => {
+        VALID_HASH = hash.trim();
+        console.log("Loaded hash from Blynk V10:", VALID_HASH);
+        checkReady();
+      })
+      .catch(() => {
+        message.className = 'message error';
+        message.textContent = "Failed to load PIN hash. Please refresh.";
+      });
+
+    // Check if device is online
+    fetch(`https://blynk.cloud/external/api/isHardwareConnected?token=${BLYNK_TOKEN}`)
+      .then(res => res.text())
+      .then(status => {
+        if (status === "true") {
+          button.dataset.online = "true";
+          statusDisplay.textContent = "Device is online.";
+          checkReady();
+        } else {
+          statusDisplay.classList.add("offline");
+          statusDisplay.textContent = "⚠️ Device is offline. Please refresh and try again.";
+          button.disabled = true;
+        }
+      })
+      .catch(() => {
+        statusDisplay.classList.add("offline");
+        statusDisplay.textContent = "⚠️ Unable to check device status. Try refreshing.";
+        button.disabled = true;
+      });
+  </script>
+</body>
+</html>
