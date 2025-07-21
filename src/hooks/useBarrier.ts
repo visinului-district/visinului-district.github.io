@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const BLYNK_TOKEN = 'YP2ihYjktFqA70ocVXo2XVyqpCJUoJK4';
+export const BLYNK_TOKEN = 'YP2ihYjktFqA70ocVXo2XVyqpCJUoJK4';
 
 export function useBarrier() {
   const [pin, setPin] = useState<string[]>(['', '', '', '']);

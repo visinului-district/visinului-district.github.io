@@ -5,6 +5,7 @@ import App from './App';
 import PlaygroundRulesView from './playground';
 import GuestsView from './guests';
 import './index.css';
+import Assistant from './assistant';
 
 const redirectPath = sessionStorage.redirect;
 if (redirectPath) {
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/playground" element={<PlaygroundRulesView />} />
         <Route path="/guests" element={<GuestsView />} />
+        <Route path="/assistant" element={<Assistant />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
