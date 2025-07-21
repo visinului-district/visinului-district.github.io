@@ -155,10 +155,18 @@ function App() {
         <section className="bg-white rounded-3xl shadow-xl p-6 text-center hover:shadow-2xl transition-all duration-300">
           <Link
             to="/playground"
-            className="inline-block text-lg font-semibold text-green-700 hover:text-green-900 transition-colors"
+            className="text-lg font-medium text-blue-600 hover:text-blue-800 transition-colors"
           >
-            🛝 Vezi regulile locului de joacă
+            🛝 <span className="underline">Vezi regulile locului de joacă</span>
           </Link>
+
+          <div className="mt-4">
+            <img
+              src="/qrcode.png"
+              alt="QR cod regulile locului de joacă"
+              className="mx-auto w-40 h-40"
+            />
+          </div>
         </section>
       </main>
     </div>
