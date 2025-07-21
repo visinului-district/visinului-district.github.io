@@ -44,7 +44,7 @@ function App() {
         {/* Barrier Card */}
         <section className="bg-white rounded-3xl shadow-xl p-6 transition-all duration-300 hover:shadow-2xl">
           <h2 className="text-2xl font-semibold mb-2 text-slate-700">
-            🔓 Acces bariera
+            🔓 Acces barierǎ
           </h2>
 
           <div className="mb-4 text-sm font-semibold text-center">
@@ -104,9 +104,9 @@ function App() {
             {getWeatherEmoji(weatherCode ?? 0)}
           </div>
           <h2 className="text-2xl font-semibold mb-1 text-slate-700">
-            🌤️ Vremea curenta
+            🌤️ Vremea curentǎ
           </h2>
-          <div className="text-sm text-slate-600 mb-4">Tamasi, Corbeanca</div>
+          <div className="text-sm text-slate-600 mb-4">Tamași, Corbeanca</div>
 
           {loading ? (
             <div className="text-sm text-slate-500">Se incarca...</div>

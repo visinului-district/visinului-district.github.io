@@ -1,13 +1,13 @@
 [
   {
     "category": "Poliție",
-    "items": [{ "label": "Locala Corbeanca", "value": "+40 787 227 885" }]
+    "items": [{ "label": "Locală Corbeanca", "value": "+40 787 227 885" }]
   },
   {
     "category": "Electricitate",
     "items": [
-      { "label": "Retele Electrice (Muntenia)", "value": "0800 070 888" },
-      { "label": "ANRE Informatii", "value": "021.9782" }
+      { "label": "Rețele Electrice (Muntenia)", "value": "0800 070 888" },
+      { "label": "ANRE Informații", "value": "021.9782" }
     ]
   },
   {
@@ -17,9 +17,17 @@
   {
     "category": "Vidanjare",
     "items": [
-      { "label": "Cristi (Tractoras)", "value": "+40 762 335 950" },
-      { "label": "Vidanja 200 Lei", "value": "+40 788 609 178" },
+      { "label": "Cristi (Tractoraș)", "value": "+40 762 335 950" },
+      { "label": "Vidanjă 200 Lei", "value": "+40 788 609 178" },
       { "label": "Raja Buftea", "value": "+40 744 648 805" }
+    ]
+  },
+  {
+    "category": "Instalatori",
+    "items": [
+      { "label": "Nea Puiu", "value": "+40 722 580 592" },
+      { "label": "Daniel Nedelcu", "value": "+40 768 504 948" },
+      { "label": "George Denisipare", "value": "+40 767 600 354" }
     ]
   }
 ]
