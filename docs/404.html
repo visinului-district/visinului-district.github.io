@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta http-equiv="refresh" content="0; URL=/" />
+    <meta charset="UTF-8" />
+    <title>Loading…</title>
+    <script>
+      // Reconstruct the full path and reload index.html
+      sessionStorage.redirect = location.pathname + location.search + location.hash;
+      location.replace('/');
+    </script>
   </head>
-  <body>
-    Redirecting...
-  </body>
+  <body></body>
 </html>
