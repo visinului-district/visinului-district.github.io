@@ -12,13 +12,13 @@ export function useBarrier() {
   const pinRefs = useRef<Array<HTMLInputElement | null>>([]);
 
   useEffect(() => {
-    // fetch(`https://blynk.cloud/external/api/isHardwareConnected?token=${BLYNK_TOKEN}`)
-    //   .then(res => res.text())
-    //   .then(status => setDeviceOnline(status === 'true'));
+    fetch(`https://blynk.cloud/external/api/isHardwareConnected?token=${BLYNK_TOKEN}`)
+      .then(res => res.text())
+      .then(status => setDeviceOnline(status === 'true'));
 
-    // fetch(`https://blynk.cloud/external/api/get?token=${BLYNK_TOKEN}&pin=V10`)
-    //   .then(res => res.text())
-    //   .then(hash => setValidHash(hash.trim()));
+    fetch(`https://blynk.cloud/external/api/get?token=${BLYNK_TOKEN}&pin=V10`)
+      .then(res => res.text())
+      .then(hash => setValidHash(hash.trim()));
   }, []);
 
   const updatePin = (index: number, value: string) => {
