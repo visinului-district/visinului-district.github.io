@@ -1,0 +1,25 @@
+[
+  {
+    "category": "Poliție",
+    "items": [{ "label": "Locala Corbeanca", "value": "+40 787 227 885" }]
+  },
+  {
+    "category": "Electricitate",
+    "items": [
+      { "label": "Retele Electrice (Muntenia)", "value": "0800 070 888" },
+      { "label": "ANRE Informatii", "value": "021.9782" }
+    ]
+  },
+  {
+    "category": "Gaz",
+    "items": [{ "label": "Distrigaz Sud", "value": "0800 877 778" }]
+  },
+  {
+    "category": "Vidanjare",
+    "items": [
+      { "label": "Cristi (Tractoras)", "value": "+40 762 335 950" },
+      { "label": "Vidanja 200 Lei", "value": "+40 788 609 178" },
+      { "label": "Raja Buftea", "value": "+40 744 648 805" }
+    ]
+  }
+]

@@ -7,13 +7,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npm run build && git add docs && git commit -m 'Deploy to docs' && git push"
+    "lint": "eslint .",
+    "deploy": "npm run build && echo '✨ Deployed via GitHub Actions'"
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.7.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
@@ -27,10 +28,10 @@
     "gh-pages": "^6.3.0",
     "globals": "^16.3.0",
     "postcss": "^8.5.6",
+    "react-switch": "^6.0.0",
     "tailwindcss": "^3.4.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
-    "vite": "^7.0.4",
-    "react-switch": "^6.0.0"
+    "vite": "^7.0.4"
   }
 }

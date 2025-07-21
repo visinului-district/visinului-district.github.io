@@ -8,6 +8,7 @@ export function useBarrier() {
   const [validHash, setValidHash] = useState<string | null>(null);
   const [status, setStatus] = useState<string>('');
   const [statusType, setStatusType] = useState<'info' | 'success' | 'error'>('info');
+  const [justOpened, setJustOpened] = useState<boolean>(false);
 
   const pinRefs = useRef<Array<HTMLInputElement | null>>([]);
 
@@ -60,6 +61,8 @@ export function useBarrier() {
         .then(() => {
           setStatus('✅ Barieră deschisă');
           setStatusType('success');
+          setJustOpened(true);
+          setTimeout(() => { setJustOpened(false); setStatus(''); }, 3000);
           setPin(['', '', '', '']);
           pinRefs.current[0]?.focus();
         })
@@ -84,6 +87,7 @@ export function useBarrier() {
     statusType,
     triggerBarrier,
     isReady: !pin.includes('') && validHash !== null && deviceOnline,
-    pinRefs
+    pinRefs,
+    justOpened
   };
 }

@@ -1,17 +1,10 @@
 // File: src/App.tsx
 
 import "./index.css";
-import {
-  useWeather,
-  getWeatherDescriptionRo,
-  getWeatherEmoji,
-} from "./hooks/useWeather";
-import { useBarrier } from "./hooks/useBarrier";
-import contacts from "./data/contacts.json";
-import { Link } from "react-router-dom";
 
-function App() {
-  const { temperature, wind, humidity, loading, weatherCode } = useWeather();
+import { useBarrier } from "./hooks/useBarrier";
+
+function GuestsView() {
   const {
     pin,
     updatePin,
@@ -97,72 +90,9 @@ function App() {
             </p>
           )}
         </section>
-
-        {/* Weather Card */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-sky-100 via-white to-sky-50 rounded-3xl shadow-xl p-6 transition-all duration-300 hover:shadow-2xl">
-          <div className="absolute right-4 top-4 text-5xl text-blue-400/20">
-            {getWeatherEmoji(weatherCode ?? 0)}
-          </div>
-          <h2 className="text-2xl font-semibold mb-1 text-slate-700">
-            🌤️ Vremea curenta
-          </h2>
-          <div className="text-sm text-slate-600 mb-4">Tamasi, Corbeanca</div>
-
-          {loading ? (
-            <div className="text-sm text-slate-500">Se incarca...</div>
-          ) : (
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col gap-1">
-                <div className="text-4xl font-bold text-blue-500">
-                  {temperature}°C
-                </div>
-                <div className="text-md text-slate-600">
-                  {getWeatherDescriptionRo(weatherCode ?? 0)}
-                </div>
-              </div>
-              <div className="text-right text-sm text-slate-500">
-                <div>Vant: {wind} km/h</div>
-                <div>Umiditate: {humidity}%</div>
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* Contacts Card */}
-        <section className="bg-white rounded-3xl shadow-xl p-6 transition-all duration-300 hover:shadow-2xl">
-          <h2 className="text-2xl font-semibold mb-4 text-slate-700">
-            📞 Contacte & Servicii
-          </h2>
-
-          <ul className="space-y-4 text-slate-600">
-            {contacts.map((group, i) => (
-              <li key={i}>
-                <div className="font-medium text-slate-700 mb-1">
-                  {group.category}
-                </div>
-                <ul className="ml-3 space-y-1 text-sm">
-                  {group.items.map((item, j) => (
-                    <li key={j} className="flex justify-between">
-                      <span>{item.label}:</span>
-                      <span>{item.value}</span>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="bg-white rounded-3xl shadow-xl p-6 text-center hover:shadow-2xl transition-all duration-300">
-          <Link
-            to="/playground"
-            className="inline-block text-lg font-semibold text-green-700 hover:text-green-900 transition-colors"
-          >
-            🛝 Vezi regulile locului de joacă
-          </Link>
-        </section>
       </main>
     </div>
   );
 }
 
-export default App;
+export default GuestsView;
