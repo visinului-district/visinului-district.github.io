@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const BLYNK_TOKEN = 'YP2ihYjktFqA70ocVXo2XVyqpCJUoJK4';
+export const CLOUDFLARE_API = 'https://pin-api.visinului.workers.dev';
 
 export function useBarrier() {
   const [pin, setPin] = useState<string[]>(['', '', '', '']);
   const [deviceOnline, setDeviceOnline] = useState<boolean>(false);
-  const [validHash, setValidHash] = useState<string | null>(null);
   const [status, setStatus] = useState<string>('');
   const [statusType, setStatusType] = useState<'info' | 'success' | 'error'>('info');
   const [justOpened, setJustOpened] = useState<boolean>(false);
@@ -13,13 +12,10 @@ export function useBarrier() {
   const pinRefs = useRef<Array<HTMLInputElement | null>>([]);
 
   useEffect(() => {
-    fetch(`https://blynk.cloud/external/api/isHardwareConnected?token=${BLYNK_TOKEN}`)
-      .then(res => res.text())
-      .then(status => setDeviceOnline(status === 'true'));
-
-    fetch(`https://blynk.cloud/external/api/get?token=${BLYNK_TOKEN}&pin=V10`)
-      .then(res => res.text())
-      .then(hash => setValidHash(hash.trim()));
+    fetch(`${CLOUDFLARE_API}/device-status`)
+      .then(res => res.json())
+      .then(data => setDeviceOnline(data.online))
+      .catch(() => setDeviceOnline(false));
   }, []);
 
   const updatePin = (index: number, value: string) => {
@@ -40,41 +36,42 @@ export function useBarrier() {
     }
   };
 
-  const hashPIN = async (pin: string) => {
-    const data = new TextEncoder().encode(pin);
-    const buffer = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(buffer))
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
-  };
-
   const triggerBarrier = async () => {
     const entered = pin.join('');
-    if (!validHash) return;
+    if (entered.length !== 4) return;
 
-    const hashed = await hashPIN(entered);
-    if (hashed === validHash) {
-      setStatus('Deschidere barieră...');
-      setStatusType('info');
+    setStatus('Verificare PIN...');
+    setStatusType('info');
 
-      fetch(`https://blynk.cloud/external/api/update?token=${BLYNK_TOKEN}&pin=V0&value=1`)
-        .then(() => {
-          setStatus('✅ Barieră deschisă');
-          setStatusType('success');
-          setJustOpened(true);
-          setTimeout(() => { setJustOpened(false); setStatus(''); }, 3000);
-          setPin(['', '', '', '']);
-          pinRefs.current[0]?.focus();
-        })
-        .catch(() => {
-          setStatus('Eroare la trimiterea cererii');
-          setStatusType('error');
-        });
-    } else {
-      setStatus('PIN greșit');
+    try {
+      const response = await fetch(`${CLOUDFLARE_API}/open-barrier`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: entered }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('✅ Barieră deschisă');
+        setStatusType('success');
+        setJustOpened(true);
+        setTimeout(() => {
+          setJustOpened(false);
+          setStatus('');
+        }, 3000);
+        setPin(['', '', '', '']);
+        pinRefs.current[0]?.focus();
+      } else {
+        setStatus('PIN greșit sau expirat');
+        setStatusType('error');
+        setPin(['', '', '', '']);
+        pinRefs.current[0]?.focus();
+      }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      setStatus('Eroare la trimiterea cererii');
       setStatusType('error');
-      setPin(['', '', '', '']);
-      pinRefs.current[0]?.focus();
     }
   };
 
@@ -86,7 +83,7 @@ export function useBarrier() {
     status,
     statusType,
     triggerBarrier,
-    isReady: !pin.includes('') && validHash !== null && deviceOnline,
+    isReady: !pin.includes('') && deviceOnline,
     pinRefs,
     justOpened
   };

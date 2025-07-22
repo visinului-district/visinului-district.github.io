@@ -96,6 +96,16 @@ function App() {
               {status}
             </p>
           )}
+
+          {/* Link to PIN Generator */}
+          <div className="mt-6 text-center">
+            <Link
+              to="/pin-generator"
+              className="inline-block text-sm text-blue-600 font-medium hover:text-blue-800 transition-colors"
+            >
+              🔧 Generează PIN pentru oaspeți →
+            </Link>
+          </div>
         </section>
 
         {/* Weather Card */}
