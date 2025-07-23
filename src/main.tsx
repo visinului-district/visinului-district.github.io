@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import App from './app';
+import App from './comunity';
 import PlaygroundRulesView from './playground';
 import GuestsView from './guests';
 import './index.css';
