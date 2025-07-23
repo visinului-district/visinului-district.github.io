@@ -1,0 +1,82 @@
+{
+  "title": "Vișinului District",
+  "barrier_access": "Acces barieră",
+  "open_button": "Deschide",
+  "device_online": "Dispozitiv online",
+  "device_offline": "Dispozitiv offline",
+  "generate_pin_link": "Generează PIN pentru oaspeți",
+  "current_weather": "Vremea curentă",
+  "location_name": "Comunitatea ta",
+  "loading": "Se încarcă...",
+  "wind_label": "Vânt",
+  "humidity_label": "Umiditate",
+  "contacts_title": "Contacte și Servicii",
+  "view_playground_rules": "Vezi regulile locului de joacă",
+  "qrcode_alt": "Cod QR către regulile locului de joacă",
+  "back": "Înapoi",
+  "generate_guest_pin_title": "Generează PIN pentru oaspeți",
+  "generate_guest_pin_description": "Introdu PIN-ul de rezident pentru a genera un cod temporar. Acest cod va fi valabil timp de 24 de ore.",
+  "generate_button": "Generează PIN",
+  "generating": "Se generează...",
+  "pin_generated": "PIN generat",
+  "copy_pin": "Copiază PIN-ul",
+  "copy_guest_link": "Copiază link-ul către pagina de oaspeți",
+  "copied": "Copiat",
+  "pin_expiration_note": "Valabil timp de 24 de ore.",
+  "admin_pin_incomplete": "PIN-ul de rezident este incomplet",
+  "error_unknown": "Eroare necunoscută",
+  "error_network": "Eroare de rețea",
+  "header_image_alt": "Imagine de fundal comunitate",
+  "playground_heading": "LOC DE JOACĂ",
+  "playground_subtitle": "Reguli pentru joacă în siguranță",
+  "playground_rules": [
+    {
+      "icon": "🚫",
+      "title": "Fără încălțăminte în trambulină",
+      "desc": "Urcă doar desculț sau cu șosete curate"
+    },
+    {
+      "icon": "🗑️",
+      "title": "Păstrează curățenia",
+      "desc": "Aruncă gunoiul doar la coș"
+    },
+    {
+      "icon": "🧸",
+      "title": "Strânge jucăriile după joacă",
+      "desc": "Lasă locul curat pentru ceilalți"
+    },
+    {
+      "icon": "🌼",
+      "title": "Ai grijă de plante",
+      "desc": "Nu rupe florile, frunzele sau crengile"
+    },
+    {
+      "icon": "🤝",
+      "title": "Joacă-te frumos",
+      "desc": "Fără împins sau ceartă — toți copiii sunt bineveniți"
+    },
+    {
+      "icon": "👨‍👧",
+      "title": "Supravegherea e importantă",
+      "desc": "Copiii mici trebuie însoțiți de un adult"
+    }
+  ],
+  "weather": {
+    "0": "Cer senin",
+    "1": "Mai mult senin",
+    "2": "Parțial noros",
+    "3": "Înnorat",
+    "45": "Ceață",
+    "48": "Ceață cu depunere",
+    "51": "Burniță ușoară",
+    "53": "Burniță moderată",
+    "55": "Burniță densă",
+    "61": "Ploaie slabă",
+    "63": "Ploaie moderată",
+    "65": "Ploaie abundentă",
+    "80": "Averse ușoare",
+    "81": "Averse moderate",
+    "82": "Averse abundente",
+    "unknown": "Condiții necunoscute"
+  }
+}

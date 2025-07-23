@@ -1,0 +1,82 @@
+{
+  "title": "Community Access",
+  "barrier_access": "Barrier Access",
+  "open_button": "Open",
+  "device_online": "Device Online",
+  "device_offline": "Device Offline",
+  "generate_pin_link": "Generate Guest PIN",
+  "current_weather": "Current Weather",
+  "location_name": "Your Community",
+  "loading": "Loading...",
+  "wind_label": "Wind",
+  "humidity_label": "Humidity",
+  "contacts_title": "Contacts & Services",
+  "view_playground_rules": "View Playground Rules",
+  "qrcode_alt": "QR code linking to playground rules",
+  "back": "Back",
+  "generate_guest_pin_title": "Generate Guest PIN",
+  "generate_guest_pin_description": "Enter your admin PIN to generate a temporary guest code. This code will be valid for 24 hours.",
+  "generate_button": "Generate PIN",
+  "generating": "Generating...",
+  "pin_generated": "Generated PIN",
+  "copy_pin": "Copy PIN",
+  "copy_guest_link": "Copy link to guest page",
+  "copied": "Copied",
+  "pin_expiration_note": "Valid for 24 hours.",
+  "admin_pin_incomplete": "Admin PIN incomplete",
+  "error_unknown": "Unknown error",
+  "error_network": "Network error",
+  "header_image_alt": "Community background",
+  "playground_heading": "PLAYGROUND",
+  "playground_subtitle": "Rules for Safe Play",
+  "playground_rules": [
+    {
+      "icon": "🚫",
+      "title": "No shoes on the trampoline",
+      "desc": "Only climb barefoot or with clean socks"
+    },
+    {
+      "icon": "🗑️",
+      "title": "Keep it clean",
+      "desc": "Throw trash only in the bin"
+    },
+    {
+      "icon": "🧸",
+      "title": "Tidy up after play",
+      "desc": "Leave the space nice for others"
+    },
+    {
+      "icon": "🌼",
+      "title": "Respect the plants",
+      "desc": "Don’t damage flowers, leaves, or branches"
+    },
+    {
+      "icon": "🤝",
+      "title": "Play nicely",
+      "desc": "No pushing, no fighting — everyone is welcome"
+    },
+    {
+      "icon": "👨‍👧",
+      "title": "Supervision is important",
+      "desc": "Young children should be accompanied by an adult"
+    }
+  ],
+  "weather": {
+    "0": "Clear sky",
+    "1": "Mostly clear",
+    "2": "Partly cloudy",
+    "3": "Overcast",
+    "45": "Fog",
+    "48": "Fog with rime",
+    "51": "Light drizzle",
+    "53": "Moderate drizzle",
+    "55": "Heavy drizzle",
+    "61": "Light rain",
+    "63": "Moderate rain",
+    "65": "Heavy rain",
+    "80": "Light showers",
+    "81": "Moderate showers",
+    "82": "Heavy showers",
+    "unknown": "Unknown conditions"
+  }
+}

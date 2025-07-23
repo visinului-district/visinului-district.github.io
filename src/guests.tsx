@@ -1,10 +1,10 @@
-// File: src/guests.tsx
-
 import "./index.css";
-
 import { useBarrier } from "./hooks/useBarrier";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "./language-switch";
 
 function GuestsView() {
+  const { t } = useTranslation();
   const {
     pin,
     updatePin,
@@ -24,11 +24,14 @@ function GuestsView() {
       <header className="relative w-full h-40 bg-white shadow-2xl flex flex-col justify-center items-center rounded-b-3xl overflow-hidden">
         <img
           src="header.png"
-          alt="Street"
+          alt={t("header_image_alt")}
           className="absolute w-full h-full object-cover opacity-60"
         />
+        <div className="absolute top-3 right-4 z-20">
+          <LanguageSwitcher />
+        </div>
         <h1 className="relative z-10 text-4xl font-extrabold tracking-wide text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
-          Vișinului District
+          {t("title")}
         </h1>
       </header>
 
@@ -37,12 +40,12 @@ function GuestsView() {
         {/* Barrier Card */}
         <section className="bg-white rounded-3xl shadow-xl p-6 transition-all duration-300 hover:shadow-2xl">
           <h2 className="text-2xl font-semibold mb-2 text-slate-700">
-            🔓 Acces bariera
+            🔓 {t("barrier_access")}
           </h2>
 
           <div className="mb-4 text-sm font-semibold text-center">
             <span className={deviceOnline ? "text-green-600" : "text-red-500"}>
-              {deviceOnline ? "Dispozitiv online" : "Dispozitiv offline"}
+              {deviceOnline ? t("device_online") : t("device_offline")}
             </span>
           </div>
 
@@ -73,7 +76,7 @@ function GuestsView() {
                 : "bg-gradient-to-r from-blue-500 to-teal-400 text-white hover:from-blue-600 hover:to-teal-500"
             }`}
           >
-            Deschide
+            {t("open_button")}
           </button>
 
           {status && statusType !== "info" && (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface WeatherData {
   temperature: number | null;
@@ -43,27 +44,9 @@ export function useWeather(latitude = 44.615, longitude = 25.980): WeatherData {
   return { temperature, wind, humidity, loading, error, weatherCode };
 }
 
-export function getWeatherDescriptionRo(code: number): string {
-  const descriptions: Record<number, string> = {
-    0: 'Cer senin',
-    1: 'Mai mult senin',
-    2: 'Parțial noros',
-    3: 'Înnorat',
-    45: 'Ceață',
-    48: 'Ceață cu depunere',
-    51: 'Burniță ușoară',
-    53: 'Burniță moderată',
-    55: 'Burniță densă',
-    61: 'Ploaie slabă',
-    63: 'Ploaie moderată',
-    65: 'Ploaie abundentă',
-    80: 'Averse ușoare',
-    81: 'Averse moderate',
-    82: 'Averse abundente',
-    // Extend with more if needed
-  };
-
-  return descriptions[code] ?? 'Condiții necunoscute';
+export function useWeatherDescription(code: number): string {
+  const { t } = useTranslation();
+  return t(`weather.${code}`, { defaultValue: t("weather.unknown") });
 }
 
 export function getWeatherEmoji(code: number): string {
