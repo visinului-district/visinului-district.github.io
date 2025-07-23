@@ -164,7 +164,7 @@ function GuestPinGenerator() {
             <button
               onClick={() => {
                 navigator.clipboard.writeText(
-                  "https://your-domain.com/guests"
+                  "https://visinului-district.github.io/guests"
                 );
                 setLinkCopied(true);
                 setTimeout(() => setLinkCopied(false), 2000);
