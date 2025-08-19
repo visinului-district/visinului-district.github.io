@@ -27,6 +27,12 @@
   "error_unknown": "Unknown error",
   "error_network": "Network error",
   "header_image_alt": "Community background",
+  "barrier": {
+    "verifying_pin": "Verifying PIN...",
+    "opened_successfully": "✅ Barrier opened",
+    "invalid_or_expired_pin": "Invalid or expired PIN",
+    "network_error": "Network error"
+  },
   "playground_heading": "PLAYGROUND",
   "playground_subtitle": "Rules for Safe Play",
   "playground_rules": [

@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-
-export const CLOUDFLARE_API = 'https://pin-api.visinului.workers.dev';
+import { API_ENDPOINTS } from '../constants';
+import type { StatusType, BarrierStatusCode } from '../types';
 
 export function useBarrier() {
   const [pin, setPin] = useState<string[]>(['', '', '', '']);
   const [deviceOnline, setDeviceOnline] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>('');
-  const [statusType, setStatusType] = useState<'info' | 'success' | 'error'>('info');
+  const [status, setStatus] = useState<BarrierStatusCode | null>(null);
+  const [statusType, setStatusType] = useState<StatusType | null>(null);
   const [justOpened, setJustOpened] = useState<boolean>(false);
 
   const pinRefs = useRef<Array<HTMLInputElement | null>>([]);
 
   useEffect(() => {
-    fetch(`${CLOUDFLARE_API}/device-status`)
+    fetch(`${API_ENDPOINTS.BARRIER}/device-status`)
       .then(res => res.json())
       .then(data => setDeviceOnline(data.online))
       .catch(() => setDeviceOnline(false));
@@ -40,11 +40,11 @@ export function useBarrier() {
     const entered = pin.join('');
     if (entered.length !== 4) return;
 
-    setStatus('Verificare PIN...');
+    setStatus('VERIFYING_PIN');
     setStatusType('info');
 
     try {
-      const response = await fetch(`${CLOUDFLARE_API}/open-barrier`, {
+      const response = await fetch(`${API_ENDPOINTS.BARRIER}/open-barrier`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pin: entered }),
@@ -53,24 +53,23 @@ export function useBarrier() {
       const result = await response.json();
 
       if (result.success) {
-        setStatus('✅ Barieră deschisă');
+        setStatus('OPENED_SUCCESSFULLY');
         setStatusType('success');
         setJustOpened(true);
         setTimeout(() => {
           setJustOpened(false);
-          setStatus('');
+          setStatus(null);
         }, 3000);
         setPin(['', '', '', '']);
         pinRefs.current[0]?.focus();
       } else {
-        setStatus('PIN greșit sau expirat');
+        setStatus('INVALID_OR_EXPIRED_PIN');
         setStatusType('error');
         setPin(['', '', '', '']);
         pinRefs.current[0]?.focus();
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      setStatus('Eroare la trimiterea cererii');
+    } catch {
+      setStatus('NETWORK_ERROR');
       setStatusType('error');
     }
   };

@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import App from './comunity';
-import PlaygroundRulesView from './playground';
-import GuestsView from './guests';
+import { CommunityView, PlaygroundView, GuestsView, PinGeneratorView } from './views';
+import { ROUTES } from './constants';
 import './index.css';
-import GuestPinGenerator from './pin-generator';
 import './i18n';
 
 
@@ -19,10 +17,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/playground" element={<PlaygroundRulesView />} />
-        <Route path="/guests" element={<GuestsView />} />
-        <Route path="/pin-generator" element={<GuestPinGenerator />} />
+        <Route path={ROUTES.HOME} element={<CommunityView />} />
+        <Route path={ROUTES.PLAYGROUND} element={<PlaygroundView />} />
+        <Route path={ROUTES.GUESTS} element={<GuestsView />} />
+        <Route path={ROUTES.PIN_GENERATOR} element={<PinGeneratorView />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
