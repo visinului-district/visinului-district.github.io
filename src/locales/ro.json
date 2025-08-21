@@ -27,6 +27,12 @@
   "error_unknown": "Eroare necunoscută",
   "error_network": "Eroare de rețea",
   "header_image_alt": "Imagine de fundal comunitate",
+  "barrier": {
+    "verifying_pin": "Verificare PIN...",
+    "opened_successfully": "✅ Barieră deschisă",
+    "invalid_or_expired_pin": "PIN greșit sau expirat",
+    "network_error": "Eroare la trimiterea cererii"
+  },
   "playground_heading": "LOC DE JOACĂ",
   "playground_subtitle": "Reguli pentru joacă în siguranță",
   "playground_rules": [
